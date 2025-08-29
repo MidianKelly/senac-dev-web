@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Mappers\" />
+    <Folder Include="Common\" />
+    <Folder Include="Validators\" />
+    <Folder Include="UseCases\Categorias\" />
+    <Folder Include="UseCases\Relatorios\" />
+    <Folder Include="UseCases\Transacoes\" />
+    <Folder Include="UseCases\Usuarios\" />
+  </ItemGroup>
+
+</Project>
