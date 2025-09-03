@@ -13,3 +13,4 @@ namespace MeuCorre.Domain.Enums
         Transferencia = 3
     }
 }
+
