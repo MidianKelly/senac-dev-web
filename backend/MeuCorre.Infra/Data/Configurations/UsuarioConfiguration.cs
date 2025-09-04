@@ -8,7 +8,7 @@ namespace MeuCorre.Configurations
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Usuario> builder)
         {
-            //Define o nomw da tabela no banco de dados.
+            //Define o nome da tabela no banco de dados.
             builder.ToTable("Usuarios");
 
             //Define a chave primária
