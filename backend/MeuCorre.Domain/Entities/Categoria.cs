@@ -15,16 +15,20 @@ namespace MeuCorre.Domain.Entities
         public string? Cor { get; private set; }
         public string? Icone { get; private set; }
         public TipoTransacao Tipo { get; private set; }
+        public Guid UsuarioId { get; private set; }
 
-        public Categoria (string nome, string descricao, string cor, string icone, TipoTransacao tipo)
+        //Propriedade de navegação para a entidade Usuario Pois o usuario pode ter varias categorias
+        public virtual Usuario Usuario { get;private set; }
+        public Categoria (string nome, string descricao, string cor, string icone, TipoTransacao tipo, Guid usuarioId)
         {            
             Nome = nome;
             Descricao = descricao;
             Cor = cor;
             Icone = icone;
             Tipo = tipo;
+            UsuarioId = usuarioId;
         }
-
+        
     }
 }
     
