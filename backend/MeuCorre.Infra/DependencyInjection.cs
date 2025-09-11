@@ -1,22 +1,26 @@
-﻿using MeuCorre.Infra.Context;
+﻿using MeuCorre.Domain.Interfaces.Repositories;
+using MeuCorre.Infra.Context;
+using MeuCorre.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MeuCorre.Infra
 {
     public static class DependencyInjection
     {
-        public static  IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructure(
+            this IServiceCollection services, IConfiguration configuration)
         {
+            //Busca a string de conexão no arquivo appsettings.json
             var connectionString = configuration.GetConnectionString("Mysql");
+
+            //Registra o MeuDbContext e configura o uso do MySQL
             services.AddDbContext<MeuDbContext>(options =>
-            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+            //Registra os repositorios para eles funcionarem com injeção de dependência
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
             return services;
         }

@@ -21,7 +21,7 @@ namespace MeuCorre.Domain.Entities
 
         //Construtor para criar um novo usuário.
         //Construtor é a primeira coisa que é executada quando uma classe é instanciada.
-        public Usuario(string nome, string email, DateTime dataNascimento, bool ativo,string senha)
+        public Usuario(string nome, string email, DateTime dataNascimento,string senha, bool ativo)
         {
 
             if(!TemIdadeMinima())

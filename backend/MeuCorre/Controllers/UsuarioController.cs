@@ -1,4 +1,5 @@
-﻿using MeuCorre.Application.UseCases.Usuarios.Commands;
+﻿using MediatR;
+using MeuCorre.Application.UseCases.Usuarios.Commands;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MeuCorre.Controllers
@@ -7,16 +8,23 @@ namespace MeuCorre.Controllers
     [Route("[controller]")]
     public class UsuarioController : ControllerBase
     {
-        /// <summary>
-        ///<cria um novo usuário>
-        ///Cria um novo usuário
-        ///<param name="command"><param>
-        ///</summary>
+        private readonly IMediator _mediator;
+        public UsuarioController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
         [HttpPost]
         public async Task<IActionResult> CriarUsuario([FromBody] CriarUsuariosCommands command)
         {
-            
-
+            var (mensagem, sucesso) = await _mediator.Send(command);
+            if (sucesso)
+            {
+                return Ok(mensagem);
+            }
+            else
+            {
+                return BadRequest( mensagem);
+            }
         }
     }
        
