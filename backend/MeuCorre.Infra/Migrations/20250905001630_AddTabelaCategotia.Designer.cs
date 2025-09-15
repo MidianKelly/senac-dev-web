@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MeuCorre.Infra.Migrations
 {
     [DbContext(typeof(MeuDbContext))]
-    [Migration("20250905003250_AddTabelaCategorias")]
-    partial class AddTabelaCategorias
+    [Migration("20250905001630_AddTabelaCategotia")]
+    partial class AddTabelaCategotia
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,8 +33,7 @@ namespace MeuCorre.Infra.Migrations
 
                     b.Property<string>("Cor")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("varchar(25)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime?>("DataAtualizacao")
                         .HasColumnType("datetime(6)");
@@ -44,28 +43,25 @@ namespace MeuCorre.Infra.Migrations
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Icone")
                         .IsRequired()
-                        .HasMaxLength(6)
-                        .HasColumnType("varchar(6)");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("longtext");
 
                     b.Property<int>("Tipo")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("char(36)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("Tipo")
-                        .IsUnique();
-
-                    b.ToTable("Categoria", (string)null);
+                    b.ToTable("Categoria");
                 });
 
             modelBuilder.Entity("MeuCorre.Domain.Entities.Usuario", b =>

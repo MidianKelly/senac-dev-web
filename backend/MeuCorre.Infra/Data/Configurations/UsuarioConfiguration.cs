@@ -2,19 +2,19 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace MeuCorre.Configurations
+namespace MeuCorre.Infra.Data.Configurations
 {
-    public class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
+    internal class Usuarioconfiguration : IEntityTypeConfiguration<Usuario>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Usuario> builder)
+        public void Configure(EntityTypeBuilder<Usuario> builder)
         {
             //Define o nome da tabela no banco de dados.
             builder.ToTable("Usuarios");
 
-            //Define a chave primária
+            //Define a chave primária.
             builder.HasKey(usuario => usuario.Id);
 
-            //Define as propriedades da entidade e suas configurações.
+            //Define as propriedades e suas configurações.
             builder.Property(usuario => usuario.Nome)
                 .IsRequired()
                 .HasMaxLength(100);

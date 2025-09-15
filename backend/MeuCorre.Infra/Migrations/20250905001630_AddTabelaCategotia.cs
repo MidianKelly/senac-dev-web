@@ -6,48 +6,41 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MeuCorre.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTabelaUsuario : Migration
+    public partial class AddTabelaCategotia : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterDatabase()
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.CreateTable(
-                name: "Usuarios",
+                name: "Categoria",
                 columns: table => new
-                { 
+                {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Nome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
+                    Nome = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
+                    Tipo = table.Column<int>(type: "int", nullable: false),
+                    Descricao = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Senha = table.Column<string>(type: "longtext", nullable: false)
+                    Cor = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DataNascimento = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Ativo = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    Icone = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    UsuarioId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     DataCriacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DataAtualizacao = table.Column<DateTime>(type: "datetime(6)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuarios", x => x.Id);
+                    table.PrimaryKey("PK_Categoria", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_Email",
-                table: "Usuarios",
-                column: "Email",
-                unique: true);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Usuarios");
+                name: "Categoria");
         }
     }
 }

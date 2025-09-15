@@ -22,6 +22,8 @@ namespace MeuCorre.Infra
             //Registra os repositorios para eles funcionarem com injeção de dependência
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 
+            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
             return services;
         }
     }

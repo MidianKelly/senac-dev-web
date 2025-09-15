@@ -13,8 +13,10 @@ namespace MeuCorre.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
         {
-          services.AddMediatR(m => m.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())); 
+            services.AddMediatR(m => m.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
             return services;
         }
+
     }
 }
+ 

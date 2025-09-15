@@ -4,50 +4,46 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MeuCorre.Infra.Data.Configurations
 {
-    internal class CategoriaConfiguration : IEntityTypeConfiguration<Categoria>
+    internal class Categoriaconfiguration : IEntityTypeConfiguration<Categoria>
     {
         public void Configure(EntityTypeBuilder<Categoria> builder)
         {
-            // Define o nome da tabela
-            builder.ToTable("Categoria");
+            //Define o nome da tabela no banco de dados.
+            builder.ToTable("Categorias");
 
-            // Define a chave primária
-            builder.HasKey(categoria => categoria.Id);
-
-            // Configura propriedades
-            builder.Property(categoria => categoria.Nome)
+            builder.Property(c => c.Nome)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(100);
+
+            builder.Property(categoria => categoria.Tipo)
+                .IsRequired();
 
             builder.Property(categoria => categoria.Descricao)
-                .HasMaxLength(200);
+                .IsRequired()
+                .HasMaxLength(255);
 
             builder.Property(categoria => categoria.Cor)
+                .IsRequired()
                 .HasMaxLength(10);
 
             builder.Property(categoria => categoria.Icone)
-               .HasMaxLength(10);
+                .IsRequired()
+                .HasMaxLength(10);
 
+            builder.Property(usuario => usuario.DataCriacao)
+                .IsRequired();
 
-            builder.Property(categoria => categoria.Tipo)
-             .IsRequired();
-
-            builder.Property(categoria => categoria.UsuarioId)
-             .IsRequired();
-
-            builder.Property(categoria => categoria.DataCriacao)
-              .IsRequired();
-
-            builder.Property(categoria => categoria.DataAtualizacao)
-              .IsRequired(false); ///FALSE É PARA ESPECIFICAR QUE O CAMPO PODE SER OPCIONAL
+            builder.Property(usuario => usuario.DataAtualizacao)
+                .IsRequired(false);
 
             //Chaves Estrangeiras FK
-            //Define o relacionamento entre a Categoria e o Usuario
+            //Define o relacionamento entre Categoria e Usuario
             builder.HasOne(categoria => categoria.Usuario)
                 .WithMany(usuario => usuario.Categorias)
                 .HasForeignKey(categoria => categoria.UsuarioId)
-                .OnDelete(DeleteBehavior.Cascade); // Define o comportamento de exclusão em cascata
+                .OnDelete(DeleteBehavior.Cascade); 
+
         }
     }
+       
 }
-
