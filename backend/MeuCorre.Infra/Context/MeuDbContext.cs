@@ -1,4 +1,4 @@
-﻿using MeuCorre.Core.Entities;
+﻿using MeuCorre.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace MeuCorre.Infra.Context
@@ -16,6 +16,15 @@ namespace MeuCorre.Infra.Context
 
         //Define a ligação entre a classe c# com a tabela do DB.
         public DbSet<Usuario> Usuarios { get; set; }
+
+        public DbSet<Categoria> Categoria { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(MeuDbContext).Assembly);
+        }
 
     }
 }
