@@ -7,10 +7,10 @@ namespace MeuCorre.Domain.Interfaces.Repositories
     public interface ICategoriaRepository
     {
         //Retorno do banco de ddos de  uma categoria que possua a Id informado
-        Task<Categoria>ObterPorIdAsync(Guid categoriaId);
+        Task<Categoria?>ObterPorIdAsync(Guid categoriaId);
 
         //Retorna do banco de dados todas as categorias que pertençam ao usuário informado
-        Task<IEnumerable<Categoria>> ObterTodosAsync(Guid usuarioId);
+        Task<IEnumerable<Categoria>> ListarTodosPorUsuarioAsync(Guid usuarioId);
 
         //Verificar se uma categoria existe no banco de dados com o Id informado
         //SELECT * FROM categoria WHERE Id = 5

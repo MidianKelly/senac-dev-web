@@ -1,31 +1,62 @@
 ﻿using MeuCorre.Domain.Entities;
 using MeuCorre.Domain.Enums;
+using MeuCorre.Domain.Interfaces.Repositories;
+using MeuCorre.Infra.Context;
+using Microsoft.EntityFrameworkCore;
 
-namespace MeuCorre.Domain.Interfaces.Repositories
+namespace MeuCorre.Infra.Repositories
 {
-    public interface ICategoriaRepository
+    public class CategoriaRepository : ICategoriaRepository
     {
-        //Retorna do banco de dados os dados de uma categoria que possua o Id informado
-        Task<Categoria> ObterPorIdAsync(Guid categoriaId);
+        private readonly MeuDbContext _meuDbContext;
 
-        //Retorna do banco de dados todas as categorias que pertençam ao usuário informado
-        Task<IEnumerable<Categoria>> ObterTodosAsync(Guid usuarioId);
+        public CategoriaRepository(MeuDbContext meuDbContext)
+        {
+            _meuDbContext = meuDbContext;
+        }
 
-        //Verificar se uma categoria existe no banco de dados com o Id informado
-        //SELECT * FROM Categorias WHERE Id = 5
-        Task<bool> ExisteAsync(Guid categoriaId);
+        public async Task AdicionarAsync(Categoria categoria)
+        {
+            _meuDbContext.Categorias.Add(categoria);
+            await _meuDbContext.SaveChangesAsync();
+        }
 
-        //Verifica se já existe uma categoria com o mesmo
-        //nome e tipo para o usuário informado
-        Task<bool> NomeExisteParaUsuarioAsync(string nome, TipoTransacao tipo, Guid usuarioId);
+        public async Task AtualizarAsync(Categoria categoria)
+        {
+            _meuDbContext.Categorias.Update(categoria);
+            await _meuDbContext.SaveChangesAsync();
+        }
 
-        //Adiciona uma nova categoria no banco de dados
-        Task AdicionarAsync(Categoria categoria);
+        public async Task<IEnumerable<Categoria>> ListarTodosPorUsuarioAsync(Guid usuarioId)
+        {
+            var listaCategoria = _meuDbContext.Categorias.Where(c => c.UsuarioId == usuarioId);
+            return await listaCategoria.ToListAsync();
+        }
 
-        //Atualiza os dados de uma categoria no banco de dados
-        Task AtualizarAsync(Categoria categoria);
+        public async Task<bool> NomeExisteParaUsuarioAsync(string nome, TipoTransacao tipo, Guid usuarioId)
+        {
+            var existe = await _meuDbContext.Categorias.AnyAsync(c =>c.Nome == nome &&  c.UsuarioId == usuarioId && c.Tipo == tipo);
 
-        //Remove uma categoria do banco de dados
-        Task RemoverAsync(Categoria categoria);
+            return existe;
+        }
+
+        public async Task<Categoria> ObterPorIdAsync(Guid categoriaId)
+        {
+            var categoria =
+                await _meuDbContext.Categorias.FirstAsync(c => c.Id == categoriaId);
+            return categoria;
+        }
+
+        public async Task RemoverAsync(Categoria categoria)
+        {
+            _meuDbContext.Categorias.Remove(categoria);
+            await _meuDbContext.SaveChangesAsync();
+        }
+
+        public async Task <bool> ExisteAsync (Guid categoriaId)
+        {
+           var existe = await _meuDbContext.Categorias.AnyAsync(c  => c.Id == categoriaId);
+            return existe;
+        }
     }
 }
