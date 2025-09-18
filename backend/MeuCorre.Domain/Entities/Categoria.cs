@@ -23,21 +23,20 @@ namespace MeuCorre.Domain.Entities
             ValidarEntidadeCategoria(cor);
             UsuarioId = usuarioId;
             Nome = nome.ToUpper();
+            Tipo = tipo;
             Descricao = descricao;
             Cor = cor;
             Icone = icone;
-            Tipo = tipo;
             Ativo = true;
 
         }
-        public void AtualizarInformacoes (string nome, TipoTransacao tipo, bool ativo, string? descricao, string? cor, string? icone)
+        public void AtualizarInformacoes (string nome, TipoTransacao tipo, string? descricao, string? cor, string? icone)
         {
             Nome = nome.ToUpper();
             Descricao = descricao;
             Cor = cor;
             Icone = icone;
             Tipo = tipo;
-            Ativo = ativo;
             AtualizarDataMoficacao();
         }
         public void Ativar()
