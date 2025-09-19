@@ -5,10 +5,10 @@ namespace MeuCorre.Application.UseCases.Categorias
     public class CriarCategoriaCommandValidator
     {
         [Required(ErrorMessage = "Nome é obrigatório!")]
-        public string Nome { get; set; }
+        public required string Nome { get; set; }
 
         [Required(ErrorMessage = "Tipo é obrigatório!")]
-        public string Tipo { get; set; }
+        public bool Tipo { get; set; }
 
         public string? Descricao { get; set; }
         public string? Cor { get; set; }
