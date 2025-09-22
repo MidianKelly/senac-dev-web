@@ -1,27 +1,28 @@
-﻿using MediatR;
+﻿using System.ComponentModel.DataAnnotations;
+using MediatR;
 using MeuCorre.Domain.Interfaces.Repositories;
-using System.ComponentModel.DataAnnotations;
 
 namespace MeuCorre.Application.UseCases.Categorias.Commands
 {
-    public class DeletarCategoriaCommand : IRequest<(string, bool)>
+    public class DeletarCategoriaCommad : IRequest<(string, bool)>
     {
-        [Required(ErrorMessage = "É necessário informar o id da categoria")]
-        public required Guid CategoriaID { get; set; }
-        [Required(ErrorMessage = "É necessário informar o id do usuário")]
+        [Required(ErrorMessage = "E necessário informar o id do usuário")]
         public required Guid UsuarioId { get; set; }
+
+        [Required(ErrorMessage = "E necessário informar o id da categoria")]
+        public required Guid CategoriaId { get; set; }
     }
-    internal class DeletarCategoriaCommandHandler : IRequestHandler<DeletarCategoriaCommand, (string, bool)>
+    internal class DeletarCategoriaCommadHandler : IRequestHandler<DeletarCategoriaCommad, (string, bool)>
     {
         private readonly ICategoriaRepository _categoriaRepository;
-        public DeletarCategoriaCommandHandler(ICategoriaRepository categoriaRepository)
+        public DeletarCategoriaCommadHandler(ICategoriaRepository categoriaRepository)
         {
             _categoriaRepository = categoriaRepository;
         }
 
-        public async Task<(string, bool)> Handle(DeletarCategoriaCommand request, CancellationToken cancellationToken)
+        public async Task<(string, bool)> Handle(DeletarCategoriaCommad request, CancellationToken cancellationToken)
         {
-            var categoria = await _categoriaRepository.ObterPorIdAsync(request.CategoriaID);
+            var categoria = await _categoriaRepository.ObterPorIdAsync(request.CategoriaId);
 
             if (categoria == null)
                 return ("Categoria não encontrada", false);
@@ -32,9 +33,8 @@ namespace MeuCorre.Application.UseCases.Categorias.Commands
             await _categoriaRepository.RemoverAsync(categoria);
 
             return ("Categoria removida com sucesso", true);
-
-
-
         }
     }
+
+
 }

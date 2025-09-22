@@ -1,4 +1,5 @@
-﻿services:
+﻿version: "3.7"
+services:
   mysql-senac:
     container_name: mysql-senac
     image: mysql:8.0

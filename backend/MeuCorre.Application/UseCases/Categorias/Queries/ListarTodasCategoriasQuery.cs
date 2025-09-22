@@ -34,7 +34,7 @@ namespace MeuCorre.Application.UseCases.Categorias.Queries
                 {
                     Nome = cat.Nome,
                     Ativo = cat.Ativo,
-                    Tipo = cat.Tipo,
+                    Tipo = cat.TipoDaTransacao,
                     Cor = cat.Cor,
                     Descricao = cat.Descricao,
                     Icone = cat.Icone,

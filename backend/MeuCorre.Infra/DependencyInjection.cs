@@ -1,5 +1,5 @@
 ﻿using MeuCorre.Domain.Interfaces.Repositories;
-using MeuCorre.Infra.Context;
+using MeuCorre.Infra.Data.Context;
 using MeuCorre.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,13 +16,12 @@ namespace MeuCorre.Infra
             var connectionString = configuration.GetConnectionString("Mysql");
 
             //Registra o MeuDbContext e configura o uso do MySQL
-            services.AddDbContext<MeuDbContext>(options =>
+            services.AddDbContext<MeuDbContext>(options => 
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
             //Registra os repositorios para eles funcionarem com injeção de dependência
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-
-            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
             return services;
         }

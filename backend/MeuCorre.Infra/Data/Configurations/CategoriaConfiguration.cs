@@ -4,31 +4,32 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MeuCorre.Infra.Data.Configurations
 {
-    internal class Categoriaconfiguration : IEntityTypeConfiguration<Categoria>
+    internal class CategoriaConfiguration : IEntityTypeConfiguration<Categoria>
     {
         public void Configure(EntityTypeBuilder<Categoria> builder)
         {
             //Define o nome da tabela no banco de dados.
             builder.ToTable("Categorias");
 
-            builder.Property(c => c.Nome)
+            //Define a chave primária.
+            builder.HasKey(categoria => categoria.Id);
+            
+            //Define as propriedades da entidade e suas configurações.
+            builder.Property(categoria => categoria.Nome)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(categoria => categoria.Tipo)
-                .IsRequired();
-
             builder.Property(categoria => categoria.Descricao)
-                .IsRequired()
                 .HasMaxLength(255);
 
             builder.Property(categoria => categoria.Cor)
-                .IsRequired()
                 .HasMaxLength(10);
 
             builder.Property(categoria => categoria.Icone)
-                .IsRequired()
                 .HasMaxLength(10);
+
+            builder.Property(categoria => categoria.TipoDaTransacao)
+                .IsRequired();
 
             builder.Property(usuario => usuario.DataCriacao)
                 .IsRequired();
@@ -37,13 +38,11 @@ namespace MeuCorre.Infra.Data.Configurations
                 .IsRequired(false);
 
             //Chaves Estrangeiras FK
-            //Define o relacionamento entre Categoria e Usuario
+            //Define o relacionamento entre Categoria e Usuario 
             builder.HasOne(categoria => categoria.Usuario)
                 .WithMany(usuario => usuario.Categorias)
                 .HasForeignKey(categoria => categoria.UsuarioId)
-                .OnDelete(DeleteBehavior.Cascade); 
-
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
-       
 }
