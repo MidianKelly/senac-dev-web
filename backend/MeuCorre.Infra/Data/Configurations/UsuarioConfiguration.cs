@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace MeuCorre.Infra.Data.Configurations
 {
-    internal class UsuarioConfiguration : IEntityTypeConfiguration<Usuario>
+    internal class Usuarioconfiguration : IEntityTypeConfiguration<Usuario>
     {
         public void Configure(EntityTypeBuilder<Usuario> builder)
         {
@@ -14,7 +14,7 @@ namespace MeuCorre.Infra.Data.Configurations
             //Define a chave primária.
             builder.HasKey(usuario => usuario.Id);
 
-            //Define as propriedades da entidade e suas configurações.
+            //Define as propriedades e suas configurações.
             builder.Property(usuario => usuario.Nome)
                 .IsRequired()
                 .HasMaxLength(100);
@@ -38,7 +38,6 @@ namespace MeuCorre.Infra.Data.Configurations
             builder.Property(usuario => usuario.DataAtualizacao)
                 .IsRequired(false);
 
-            //Define que o e-mail é único.
             builder.HasIndex(usuario => usuario.Email)
                 .IsUnique();
         }

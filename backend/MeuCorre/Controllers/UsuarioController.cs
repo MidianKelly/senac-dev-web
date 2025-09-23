@@ -2,7 +2,7 @@
 using MeuCorre.Application.UseCases.Usuarios.Commands;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MeuCorre.Controllers
+namespace MeuCorre.Controllers 
 {
     [ApiController]
     [Route("[controller]")]
@@ -35,7 +35,7 @@ namespace MeuCorre.Controllers
         public async Task<IActionResult> AtualizarUsuario(Guid id, [FromBody] AtualizarUsuarioCommand command)
         {
             command.Id = id;
-            var(mensagem, sucesso) = await _mediator.Send(command);
+            var (mensagem, sucesso) = await _mediator.Send(command);
             if (sucesso)
             {
                 return Ok(mensagem);

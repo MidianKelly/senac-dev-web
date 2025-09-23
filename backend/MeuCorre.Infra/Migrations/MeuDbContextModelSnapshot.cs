@@ -32,6 +32,7 @@ namespace MeuCorre.Infra.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Cor")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar(10)");
 
@@ -42,10 +43,12 @@ namespace MeuCorre.Infra.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Descricao")
+                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("Icone")
+                        .IsRequired()
                         .HasMaxLength(10)
                         .HasColumnType("varchar(10)");
 
@@ -54,7 +57,7 @@ namespace MeuCorre.Infra.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("varchar(100)");
 
-                    b.Property<int>("TipoDaTransacao")
+                    b.Property<int>("Tipo")
                         .HasColumnType("int");
 
                     b.Property<Guid>("UsuarioId")

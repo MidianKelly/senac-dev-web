@@ -26,17 +26,16 @@ namespace MeuCorre.Application.UseCases.Usuarios.Commands
 
         public async Task<(string, bool)> Handle(AtualizarUsuarioCommand request, CancellationToken cancellationToken)
         {
-            var usuario = await _usuarioRepository.ObterUsuarioPorId(request.Id);
-            if(usuario == null)
+            var usuario = await _usuarioRepository.ObterPorIdAsync(request.Id);
+            if (usuario == null)
             {
                 return ("Usuário não encontrado.", false);
             }
 
             usuario.AtualizarInformacoes(request.Nome, request.DataNascimento);
-
             await _usuarioRepository.AtualizarUsuarioAsync(usuario);
 
-            return ("Usuário atualizado com sucesso", true);
+            return ("Usuario atualizado com sucesso.", true);
         }
     }
 }

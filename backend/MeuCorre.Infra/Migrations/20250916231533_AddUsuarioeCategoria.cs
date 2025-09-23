@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MeuCorre.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTabelaUsuarioECategoria : Migration
+    public partial class AddUsuarioeCategoria : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -44,13 +44,13 @@ namespace MeuCorre.Infra.Migrations
                     UsuarioId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
                     Nome = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Descricao = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: true)
+                    Tipo = table.Column<int>(type: "int", nullable: false),
+                    Descricao = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Cor = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
+                    Cor = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Icone = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: true)
+                    Icone = table.Column<string>(type: "varchar(10)", maxLength: 10, nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    TipoDaTransacao = table.Column<int>(type: "int", nullable: false),
                     Ativo = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     DataCriacao = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     DataAtualizacao = table.Column<DateTime>(type: "datetime(6)", nullable: true)

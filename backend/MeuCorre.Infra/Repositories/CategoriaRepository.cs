@@ -20,9 +20,9 @@ namespace MeuCorre.Infra.Repositories
             return categoria;
         }
 
-        public async Task<IList<Categoria>> ListarTodasPorUsuarioAsync(Guid usuarioId)
+        public async Task<IEnumerable<Categoria>> ListarTodasPorUsuarioAsync(Guid usuarioId)
         {
-            var listaCategorias =  _meuDbContext.Categorias
+            var listaCategorias = _meuDbContext.Categorias
                 .Where(c => c.UsuarioId == usuarioId);
 
             return await listaCategorias.ToListAsync();
@@ -40,7 +40,7 @@ namespace MeuCorre.Infra.Repositories
         {
             var existe = await _meuDbContext.Categorias
                 .AnyAsync(
-                            c => c.Nome == nome && 
+                            c => c.Nome == nome &&
                             c.UsuarioId == usuarioId &&
                             c.TipoDaTransacao == tipo
                         );
@@ -66,4 +66,4 @@ namespace MeuCorre.Infra.Repositories
             await _meuDbContext.SaveChangesAsync();
         }
     }
-}
+}  

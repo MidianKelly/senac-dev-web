@@ -1,24 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations;
-using MediatR;
+﻿using MediatR;
 using MeuCorre.Domain.Enums;
 using MeuCorre.Domain.Interfaces.Repositories;
+using System.ComponentModel.DataAnnotations;
 
 namespace MeuCorre.Application.UseCases.Categorias.Commands
 {
     public class AtualizarCategoriaCommand : IRequest<(string, bool)>
     {
-        [Required(ErrorMessage = "Id da categoria é obrigatório")]
+        [Required(ErrorMessage = "Id da categoria é obrigatório!")]
         public required Guid CategoriaId { get; set; }
 
-        [Required(ErrorMessage = "Nome da categoria é obrigatório")]
-        public required string Nome { get; set; } 
-        
-        [Required(ErrorMessage = "Tipo (despesa ou receita) da categoria é obrigatório")]
-        public required TipoTransacao Tipo { get; set; }
+        [Required(ErrorMessage = "Nome da categoria é obrigatório!")]
+        public required string Nome{ get; set; }
 
+        [Required(ErrorMessage = "Tipo(despesa ou receita) da categoria é obrigatório!")]
+        public required  TipoTransacao Tipo { get; set; }
         public string? Descricao { get; set; }
         public string? Cor { get; set; }
         public string? Icone { get; set; }
+        public Guid Id { get; set; }
     }
 
     internal class AtualizarCategoriaCommandHandler : IRequestHandler<AtualizarCategoriaCommand, (string, bool)>
@@ -32,31 +32,27 @@ namespace MeuCorre.Application.UseCases.Categorias.Commands
         public async Task<(string, bool)> Handle(AtualizarCategoriaCommand request, CancellationToken cancellationToken)
         {
             var categoria = await _categoriaRepository.ObterPorIdAsync(request.CategoriaId);
-
             if (categoria == null)
             {
-                return ("Categoria não encontrada", false);
+                return ("Categoria não encontrada.", false);
             }
 
-            var categoriaEstaDuplicada = 
-                await _categoriaRepository.NomeExisteParaUsuarioAsync(request.Nome, request.Tipo, categoria.UsuarioId);
+            var categoriaEstaDuplicada = await _categoriaRepository.NomeExisteParaUsuarioAsync(request.Nome, request.Tipo, categoria.UsuarioId);
 
-            if (categoriaEstaDuplicada)
+            if(categoriaEstaDuplicada)
             {
-                return ("Já existe uma categoria cadastrada com esses dados", false);
-
+                return ("Já existe uma categoria cadastrada com esses dados!", false);
             }
 
             categoria.AtualizarInformacoes(
+                request.CategoriaId,
                 request.Nome, 
-                request.Tipo, 
-                request.Descricao, 
+                request.Tipo,
+                request.Descricao,
                 request.Cor, 
                 request.Icone);
-
             await _categoriaRepository.AtualizarAsync(categoria);
-            return ("Categoria atualizada com sucesso", true);
-
+            return ("Categoia atualizada com sucesso.", true);
         }
     }
 }

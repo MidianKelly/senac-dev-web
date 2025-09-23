@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using MediatR;
+﻿using MediatR;
 using MeuCorre.Application.UseCases.Categorias.Dtos;
 using MeuCorre.Domain.Interfaces.Repositories;
 
@@ -7,9 +6,9 @@ namespace MeuCorre.Application.UseCases.Categorias.Queries
 {
     public class ObterCategoriaQuery : IRequest<CategoriaDto>
     {
-        [Required(ErrorMessage = "Informe o Id da categoria")]
         public required Guid CategoriaId { get; set; }
     }
+
 
     internal class ObterCategoriaQueryHandler : IRequestHandler<ObterCategoriaQuery, CategoriaDto>
     {
@@ -22,10 +21,8 @@ namespace MeuCorre.Application.UseCases.Categorias.Queries
         public async Task<CategoriaDto> Handle(ObterCategoriaQuery request, CancellationToken cancellationToken)
         {
             var categoria = await _categoriaRepository.ObterPorIdAsync(request.CategoriaId);
-
             if (categoria == null)
                 return null;
-
             var categoriaDto = new CategoriaDto
             {
                 Nome = categoria.Nome,
@@ -35,8 +32,8 @@ namespace MeuCorre.Application.UseCases.Categorias.Queries
                 Descricao = categoria.Descricao,
                 Icone = categoria.Icone,
             };
-
             return categoriaDto;
         }
     }
 }
+

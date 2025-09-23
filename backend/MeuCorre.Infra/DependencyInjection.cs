@@ -16,11 +16,12 @@ namespace MeuCorre.Infra
             var connectionString = configuration.GetConnectionString("Mysql");
 
             //Registra o MeuDbContext e configura o uso do MySQL
-            services.AddDbContext<MeuDbContext>(options => 
+            services.AddDbContext<MeuDbContext>(options =>
                 options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
             //Registra os repositorios para eles funcionarem com injeção de dependência
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
             return services;

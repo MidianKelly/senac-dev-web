@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Common\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Mappers\" />
-    <Folder Include="Common\" />
-    <Folder Include="Validators\" />
     <Folder Include="UseCases\Relatorios\" />
     <Folder Include="UseCases\Transacoes\" />
+    <Folder Include="Validators\" />
   </ItemGroup>
 
   <ItemGroup>
