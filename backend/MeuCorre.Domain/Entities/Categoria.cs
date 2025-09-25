@@ -1,4 +1,5 @@
 ﻿using MeuCorre.Domain.Enums;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
 namespace MeuCorre.Domain.Entities
@@ -7,6 +8,8 @@ namespace MeuCorre.Domain.Entities
     {
         public Guid UsuarioId { get; private set; }
         public string Nome { get; private set; }
+
+        [Column ("Tipo")]
         public TipoTransacao TipoDaTransacao { get; private set; }
         public string? Descricao { get; private set; }
         public string? Cor { get; private set; }
