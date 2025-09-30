@@ -32,7 +32,7 @@ namespace MeuCorre.Application.UseCases.Usuarios.Commands
                 return ("Usuário não encontrado.", false);
             }
 
-            usuario.AtualizarInformacoes(request.Nome, request.DataNascimento);
+           usuario.AtualizarInformacoes(request.Nome, request.DataNascimento);
             await _usuarioRepository.AtualizarUsuarioAsync(usuario);
 
             return ("Usuario atualizado com sucesso.", true);

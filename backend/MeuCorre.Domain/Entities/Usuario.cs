@@ -4,15 +4,19 @@ namespace MeuCorre.Domain.Entities
 {
     public class Usuario : Entidade
     {
+        public Guid Id { get; set; }
         public string Nome { get; private set; }
         public string Email { get; private set; }
         public string Senha { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public bool Ativo { get; private set; }
 
+
         // Propriedade de navegação para a entidade Categoria pois
         // o usuário pode ter várias categorias
         public virtual ICollection<Categoria> Categorias { get; set; }
+        public virtual ICollection<Conta> Conta { get; set; }
+
 
 
         //Construtor para criar um novo usuário.
