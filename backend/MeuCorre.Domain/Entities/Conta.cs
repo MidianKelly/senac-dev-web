@@ -4,6 +4,12 @@ namespace MeuCorre.Domain.Entities
 {
     public class Conta : Entidade
     {
+        private TipoConta tipoConta;
+        private TipoLimite tipoLimite;
+        private decimal saldoAjustado;
+        private int? diaVencimento;
+        private int? diaFechamentoCalculado;
+
         public Guid ContaId { get; private set; }
         public string Nome { get; private set; }
         public TipoConta TipoConta { get; private set; }
@@ -27,6 +33,18 @@ namespace MeuCorre.Domain.Entities
             Saldo = saldo;
             Ativo = true;
 
+        }
+
+        public Conta(Guid id, Guid usuarioId, string nome, TipoConta tipoConta, TipoLimite tipoLimite, decimal saldoAjustado, DateTime dataCriacao, int? diaVencimento, int? diaFechamentoCalculado) : base(id)
+        {
+            UsuarioId = usuarioId;
+            Nome = nome;
+            this.tipoConta = tipoConta;
+            this.tipoLimite = tipoLimite;
+            this.saldoAjustado = saldoAjustado;
+            DataCriacao = dataCriacao;
+            this.diaVencimento = diaVencimento;
+            this.diaFechamentoCalculado = diaFechamentoCalculado;
         }
     }
 

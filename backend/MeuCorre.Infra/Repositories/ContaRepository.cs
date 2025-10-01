@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MeuCorre.Infra.Repositories
 {
-    class ContaRepository : IContaRepository
+    public class ContaRepository : IContaRepository
     {
         private readonly MeuDbContext _meuDbContext;
         public ContaRepository(MeuDbContext meuDbContext)
@@ -54,7 +54,6 @@ namespace MeuCorre.Infra.Repositories
                 .ToListAsync();
         }
 
-
         public async Task<List<Conta>> ObterPorUsuarioAsync(Guid usuarioId, bool apenasAtivas = true)
         {
             var query = _meuDbContext.Contas
@@ -68,6 +67,11 @@ namespace MeuCorre.Infra.Repositories
             return await query
                 .OrderBy(c => c.Nome)
                 .ToListAsync();
+        }
+        public async Task AdicionarAsync(Conta conta)
+        {
+            await _meuDbContext.Contas.AddAsync(conta);
+            await _meuDbContext.SaveChangesAsync();
         }
 
     }
