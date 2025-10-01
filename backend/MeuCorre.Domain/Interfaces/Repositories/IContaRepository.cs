@@ -12,7 +12,7 @@ namespace MeuCorre.Domain.Interfaces.Repositories
     {
         Task<List<Conta>> ObterPorUsuarioAsync(Guid usuarioId, bool apenasAtivas = true);
         Task<List<Conta>> ObterPorTipoAsync(Guid usuarioId, TipoConta tipo);
-        Task<Conta?> ObterPorIdEUsuarioAsync(Guid contaId, Guid usuarioId);
+        Task<Conta?> ObterPorIdUsuarioAsync(Guid contaId, Guid usuarioId);
         Task<bool> ExisteContaComNomeAsync(Guid usuarioId, string nome, Guid? contaIdExcluir = null);
         Task<decimal> CalcularSaldoTotalAsync(Guid usuarioId);
     }
