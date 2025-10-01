@@ -23,6 +23,7 @@ namespace MeuCorre.Infra.Data.Context
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(MeuDbContext).Assembly);
         }
+        public DbSet<Conta> Contas { get; set; }
 
     }
 }

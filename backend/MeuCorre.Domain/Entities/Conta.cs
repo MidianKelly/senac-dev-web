@@ -9,13 +9,13 @@ namespace MeuCorre.Domain.Entities
         public TipoConta TipoConta { get; private set; }
         public TipoLimite TipoLimite { get; private set; }
         public decimal Saldo { get; private set; }
-        public Usuario UsuarioId { get; private set; }
+        public Guid UsuarioId { get; private set; }
         public bool Ativo { get; set; }
         public DateTime DataCriacao { get; private set; }
         public Usuario Usuario { get; set; }
 
 
-        public Conta(Guid contaId, Usuario usuarioId, string nome, TipoConta tipoConta, TipoLimite tipoLimite, decimal saldo, bool ativo)
+        public Conta(Guid contaId, Guid usuarioId, string nome, TipoConta tipoConta, TipoLimite tipoLimite, decimal saldo, bool ativo)
         {
             //aQUI TINHA UM MÉTODO DE VERIFICAR COR
 
