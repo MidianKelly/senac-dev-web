@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+:root{
+    --mc-purple:#592EF2;
+    --mc-dark:#141926;
+    --mc-gray:#BFCAD9;
+    --mc-green:#29F280;
+    --mc-dark-green:#24733F;
+
+}
+.mc-bg-dark{
+    background-color: var(--mc-dark);
+
+}
+.mc-bg-gray{
+    border-color: var(--mc-gray);
+}
+.mc-text-green{
+    color: var(--mc-green);
+}
+.mc-text-purple{
+    color: var(--mc-purple);
+}
+
+
+.mc-border-dark-green{
+    border-color: var(--mc-dark-green);
+}
