@@ -26,3 +26,11 @@
 .mc-border-dark-green{
     border-color: var(--mc-dark-green);
 }
+.btn-outline-secondary {
+    --bs-btn-color: #A0A0A0;
+    --bs-btn-border-color: #F2F4EF;
+    --bs-btn-hover-color: #cce2b8;
+    --bs-btn-hover-bg: #F2F4EF;
+    --bs-btn-hover-border-color: #F2F4EF;
+   
+}
