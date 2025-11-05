@@ -35,7 +35,7 @@
             <i class="ri-settings-4-line ri-lg"></i>
           </a>
           <div ngbDropdownMenu aria-labelledby="dropConfiguracao">
-            <button ngbDropdownItem>Categorias</button>
+            <a routerLink="/config/categorias" ngbDropdownItem>Categorias</a>
             <button ngbDropdownItem>Contas</button>
             <button ngbDropdownItem>Cartões de crédito</button>
             <div class="dropdown-divider"></div>
@@ -65,4 +65,6 @@
     <p>7 dias restantes</p>
   </div>
 </nav>
+<div class="container-lg">
 <router-outlet> </router-outlet>
+</div>
