@@ -5,12 +5,20 @@
 
 .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link.active {
-    color: var(--bs-nav-tabs-link-active-color);
+    color: var(--mc-dark-green);
     background-color: transparent;
-    border-color: transparent;
-    border-bottom: 3px solid #129E3F;
-    color:#24733F;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-bottom: 2px solid var(--mc-dark-green);
+    font-weight: bold;
+  
 }
+.nav-tabs .nav-item
+{
+    width: 50%;
+    text-align: center;
+} 
 
 .nav-link {
     display: block;
