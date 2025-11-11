@@ -1,11 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { Categorias } from "./pages/dashboard/categorias/categorias";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NgbDropdownModule, Categorias, RouterLinkWithHref],
+  imports: [RouterOutlet, NgbDropdownModule, RouterLinkWithHref],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

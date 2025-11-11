@@ -4,7 +4,7 @@ import { BemVindo } from './bem-vindo/bem-vindo';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [AcessoRapido,BemVindo],
+  imports: [AcessoRapido, BemVindo],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })

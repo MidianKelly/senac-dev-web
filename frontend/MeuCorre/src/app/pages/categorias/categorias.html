@@ -29,19 +29,8 @@
 								</td>
 								<td>{{ despesa.nome }}</td>
 								<td>{{ despesa.descricao }}</td>
-								<td><app-status-badge [status]="despesa.status"></app-status-badge></td>
-								<td>
-									<button type="button" class="btn btn-sm btn-outline-dark me-1" placement="top"
-										ngbTooltip="Editar categoria">
-										<i class="ri-pencil-line"></i>
-									</button>
-									<button (click)="excluirCategoriaDespesa(despesa.id)" type="button"
-										class="btn btn-sm btn-outline-danger" placement="top"
-										ngbTooltip="Excluír categoria">
-										<i class="ri-delete-bin-2-line"></i>
-									</button>
-
-								</td>
+								<td><app-status-badge [status]="despesa.ativo"></app-status-badge></td>
+								<td>botao</td>
 							</tr>
 							}
 						</tbody>
@@ -69,20 +58,8 @@
 								</td>
 								<td>{{ receita.nome }}</td>
 								<td>{{ receita.descricao }}</td>
-								<td>{{ receita.status }}</td>
-								<td>
-								<td><app-status-badge [status]="receita.status"></app-status-badge></td>
-								<td>
-									<button type="button" class="btn btn-sm btn-outline-dark me-1" placement="top"
-										ngbTooltip="Editar categoria">
-										<i class="ri-pencil-line"></i>
-									</button>
-									<button (click)="excluirCategoriaDespesa(receita.id)" type="button"
-										class="btn btn-sm btn-outline-danger" placement="top"
-										ngbTooltip="Cadastrar categoria">
-										<i class="ri-delete-bin-2-line"></i>
-									</button>
-								</td>
+								<td>{{ receita.ativo }}</td>
+								<td>botao</td>
 							</tr>
 							}
 						</tbody>
@@ -117,13 +94,13 @@
 					</div>
 					<div class="mb-3">
 						<label for="txtIcone" class="form-label">Ícone</label>
-						<input [formControl]="icone" type="text" class="form-control" id="txtIcone"
-							placeholder="ri ri-add-line" />
+						<input [formControl]="icone" type="text" class="form-control" id="txtIcone" placeholder="ri ri-add-line" />
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-secondary" (click)="cadastrarCategoria()">Salvar</button>
+				<button type="button" class="btn btn-outline-secondary"
+					(click)="cadastrarCategoria()">Salvar</button>
 			</div>
 		</ng-template>
 

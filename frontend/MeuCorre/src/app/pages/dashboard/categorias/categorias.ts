@@ -1,40 +1,55 @@
-import { Component } from '@angular/core';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { Component, inject, signal, TemplateRef, WritableSignal } from '@angular/core';
+import { ModalDismissReasons, NgbModal, NgbNavModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { CategoriaModel } from './models/categoria.model';
+import { IconAvatar } from "../../../shared/components/icon-avatar/icon-avatar";
+import { Badge } from "../../../shared/components/status-badge/badge/badge";
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { StatusBadge } from "../../../shared/components/status-badge/status-badge";
+
 
 @Component({
   selector: 'app-categorias',
-  imports: [NgbNavModule],
-  templateUrl: './categorias.html',
-  styleUrl: './categorias.css',
+  imports: [NgbNavModule, IconAvatar, Badge, ReactiveFormsModule, StatusBadge,NgbTooltipModule],
+  templateUrl:  './categorias.html' ,
+  styleUrl: './categorias.css'
 })
 export class Categorias {
+  private modalService = inject(NgbModal);
+  closeResult: WritableSignal<string> = signal('');
+
+  nome = new FormControl('');
+  descricao = new FormControl('');
+  cor = new FormControl('');
+  icone = new FormControl('');
+
   active = 1;
+  
+ 
 
   categorias_receitas: CategoriaModel[] = [
     {
-      id: '1', 
-      nome: 'Salário', 
-      descricao: 'Recebimento mensal', 
-      cor: '#28a745', 
-      icone: '', 
-      ativo: true
+      id: '1',
+      nome: 'Salário',
+      descricao: 'Recebimento mensal',
+      cor: '#28a745',
+      icone: 'ri-bank-line',
+      status: true
     },
     {
       id: '2',
       nome: 'Freelance',
       descricao: 'Trabalhos avulsos',
       cor: '#17a2b8',
-      icone: '',
-      ativo: true
+      icone: 'ri-briefcase-line',
+      status: true
     },
     {
       id: '3',
       nome: 'Investimentos',
       descricao: 'Rendimentos de investimentos',
       cor: '#ffc107',
-      icone: '',
-      ativo: true
+      icone: 'ri-line-chart-line',
+      status: true
     },
   ];
 
@@ -44,24 +59,73 @@ export class Categorias {
       nome: 'Alimentação',
       descricao: 'Alimentação',
       cor: '#dc3545',
-      icone: 'fas fa-utensils',
-      ativo: true
+      icone: 'ri-restaurant-line',
+      status: true
     },
     {
       id: '2',
       nome: 'Transporte',
       descricao: 'Despesas com transporte',
       cor: '#fd7e14',
-      icone: 'fas fa-bus',
-      ativo: true
+      icone: 'ri-bus-line',
+      status: true
     },
     {
       id: '3',
       nome: 'Lazer',
       descricao: 'Despesas com lazer',
       cor: '#ffc107',
-      icone: 'fas fa-film' ,
-      ativo: true
+      icone: 'ri-film-line',
+      status: true
     },
   ];
+  open(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      (result) => {
+        this.closeResult.set(`Closed with: ${result}`);
+      },
+      (reason) => {
+        this.closeResult.set(`Dismissed ${this.getDismissReason(reason)}`);
+      },
+    );
+  }
+  private getDismissReason(reason: any): string {
+    switch (reason) {
+      case ModalDismissReasons.ESC:
+        return 'by pressing ESC';
+      case ModalDismissReasons.BACKDROP_CLICK:
+        return 'by clicking on a backdrop';
+      default:
+        return `with: ${reason}`;
+    }
+  }
+  cadastrarCategoria(){
+    console.log(this.nome.value)
+    console.log(this.descricao.value)
+    console.log(this.cor.value)
+    console.log(this.icone.value)
+
+    this.categorias_receitas.push({
+      id: this.categorias_receitas.length + 1 + '',
+      nome: this.nome.value!,
+      descricao: this.descricao.value!,
+      cor: this.cor.value!,
+      icone: this.icone.value!,
+      status: true
+    })
+    console.log( this.categorias_receitas)
+    this.modalService.dismissAll();
+  
+  }
+  excluirCategoriaDespesa(id:string){
+    this.categorias_despesas = this.categorias_despesas.filter(categoria => categoria.id !== id.toString());
+
+  }
+
+  cadastrarCategoriaDespesa(id: string, nome: string) {
+
+  this.categorias_despesas = this.categorias_despesas.filter(categoria => categoria.id == id.toString());
+
+}
+
 }
