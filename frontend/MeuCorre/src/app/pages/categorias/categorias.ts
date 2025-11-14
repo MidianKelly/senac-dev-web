@@ -1,9 +1,10 @@
-import { Component, inject, signal, TemplateRef, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, signal, TemplateRef, WritableSignal } from '@angular/core';
 import { ModalDismissReasons, NgbModal, NgbNavModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { CategoriaModel } from './models/categoria.model';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { IconAvatar } from '../../shared/components/icon-avatar/icon-avatar';
 import { StatusBadge } from '../../shared/components/status-badge/status-badge';
+import { CategoriaService } from './categoria.service';
 
 
 @Component({
@@ -12,8 +13,12 @@ import { StatusBadge } from '../../shared/components/status-badge/status-badge';
   templateUrl: './categorias.html',
   styleUrl: './categorias.css',
 })
-export class Categorias {
+export class Categorias implements OnInit {
+  
   private modalService = inject(NgbModal);
+
+  private categoriaService = inject(CategoriaService);
+
   closeResult: WritableSignal<string> = signal('');
 
   nome = new FormControl('');
@@ -25,77 +30,32 @@ export class Categorias {
   editandoCategoria = false;
   idEditandoCategoria = '';
 
-  categorias: CategoriaModel[] = [
-    {
-      id: '1',
-      nome: 'Salário',
-      descricao: 'Recebimento mensal',
-      cor: '#28a745',
-      icone: 'ri-bank-line',
-      tipo: 'receita',
-      ativo: true
-    },
-    {
-      id: '2',
-      nome: 'Freelance',
-      descricao: 'Trabalhos avulsos',
-      cor: '#17a2b8',
-      icone: 'ri-briefcase-line',
-      tipo: 'receita',
-      ativo: true
-    },
-    {
-      id: '3',
-      nome: 'Investimentos',
-      descricao: 'Rendimentos de investimentos',
-      cor: '#ffc107',
-      icone: 'ri-line-chart-line',
-      tipo: 'receita',
-      ativo: true
-    },
+  categorias = signal<CategoriaModel[]>([]);
 
-
-    {
-      id: '1',
-      nome: 'Alimentação',
-      descricao: 'Alimentação',
-      cor: '#dc3545',
-      icone: 'ri-restaurant-line',
-      tipo: 'despesa',
-      ativo: true
-    },
-    {
-      id: '2',
-      nome: 'Transporte',
-      descricao: 'Despesas com transporte',
-      cor: '#fd7e14',
-      icone: 'ri-bus-line',
-      tipo: 'despesa',
-      ativo: true
-    },
-    {
-      id: '3',
-      nome: 'Lazer',
-      descricao: 'Despesas com lazer',
-      cor: '#ffc107',
-      icone: 'ri-film-line',
-      tipo: 'despesa',
-      ativo: true
-    },
-
-  ];
 
   get listaReceita() {
-    return this.categorias.filter(categoria => categoria.tipo === 'receita');
+    return this.categorias().filter((categoria) => categoria.tipo === 'receita');
   }
 
   get listarDespesas() {
-    return this.categorias.filter(categoria => categoria.tipo === 'despesa');
+    return this.categorias().filter((categoria) => categoria.tipo === 'despesa');
   }
 
+  ngOnInit(): void {
+    this.carregarTodasCategorias();
+  }
+
+  carregarTodasCategorias(){
+    this.categoriaService.obterTodasPorUsuario().subscribe({
+      next:(dados) => {
+        this.categorias.set(dados);
+      }
+
+    })
+  }
 
   open(content: TemplateRef<any>, categoria?: CategoriaModel) {
-    if (categoria) {
+    if ((categoria)) {
 
       this.idEditandoCategoria = categoria.id;
       this.editandoCategoria = true;
@@ -151,10 +111,10 @@ export class Categorias {
 
     if (this.active === 1) {
       novaCategoria.tipo = 'despesa';
-      this.categorias.push(novaCategoria);
+      this.categorias().push(novaCategoria);
     } else {
       novaCategoria.tipo = 'receita';
-      this.categorias.push(novaCategoria);
+      this.categorias().push(novaCategoria);
     }
 
     this.modalService.dismissAll();
@@ -162,11 +122,10 @@ export class Categorias {
 
 
   deletarCategoria(id: string) {
-    this.categorias = this.categorias.filter(categoria => categoria.id !== id.toString());
   }
 
   editarCategoria() {
-    const categoria = this.categorias.find(cat => cat.id === this.idEditandoCategoria);
+    const categoria = this.categorias().find(cat => cat.id === this.idEditandoCategoria);
     if (categoria) {
       categoria.nome = this.nome.value!;
       categoria.descricao = this.descricao.value!;
