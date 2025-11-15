@@ -62,7 +62,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@for (receita of listaReceita; track receita.id; let i = $index) {
+							@for (receita of listaReceitas(); track receita.id; let i = $index) {
 							<tr>
 								<td>
 									<app-icon-avatar [icone]="receita.icone" [cor]="receita.cor"></app-icon-avatar>

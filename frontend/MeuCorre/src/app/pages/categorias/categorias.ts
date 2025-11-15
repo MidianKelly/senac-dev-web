@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal, TemplateRef, WritableSignal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, TemplateRef, WritableSignal } from '@angular/core';
 import { ModalDismissReasons, NgbModal, NgbNavModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { CategoriaModel } from './models/categoria.model';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
@@ -32,14 +32,10 @@ export class Categorias implements OnInit {
 
   categorias = signal<CategoriaModel[]>([]);
 
+  
+  listaReceitas = computed(() => this.categorias().filter((c) => c.tipo ==="receita"));
+  listaDespesas = computed(() => this.categorias().filter((c) => c.tipo ==="despesa"));
 
-  get listaReceita() {
-    return this.categorias().filter((categoria) => categoria.tipo === 'receita');
-  }
-
-  get listarDespesas() {
-    return this.categorias().filter((categoria) => categoria.tipo === 'despesa');
-  }
 
   ngOnInit(): void {
     this.carregarTodasCategorias();

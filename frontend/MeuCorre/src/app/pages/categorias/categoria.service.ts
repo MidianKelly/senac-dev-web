@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CategoriaService {
 
-  private apiUrl = 'https://localhost:7160/Categoria?';
+  private apiUrl = 'https://localhost:7160/Categoria';
 
   private http = inject(HttpClient);
 
