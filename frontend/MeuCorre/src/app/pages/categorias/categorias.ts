@@ -25,6 +25,8 @@ export class Categorias implements OnInit {
   descricao = new FormControl('');
   cor = new FormControl('');
   icone = new FormControl('');
+  tipo = new FormControl('despesa');
+
 
   active = 1;
   editandoCategoria = false;
@@ -44,9 +46,25 @@ export class Categorias implements OnInit {
   carregarTodasCategorias(){
     this.categoriaService.obterTodasPorUsuario().subscribe({
       next:(dados) => {
-        this.categorias.set(dados);
-      }
 
+        const categoriasMapeadas = dados.map((c) => {
+          const item: CategoriaModel = {
+            id: c.id,
+            nome: c.nome,
+            descricao: c.descricao,
+            cor: c.cor,
+            icone: c.icone,
+            tipo: c.tipo === '1' ? 'receita' : 'despesa',
+            ativo: c.ativo
+
+          }
+          return item; 
+        });
+        this.categorias.set(categoriasMapeadas);
+      },
+      error:(err) => {
+        console.error('Erro ao carregar categorias', err);
+      }
     })
   }
 
@@ -59,7 +77,7 @@ export class Categorias implements OnInit {
       this.descricao.setValue(categoria.descricao);
       this.cor.setValue(categoria.cor);
       this.icone.setValue(categoria.icone);
-      this.active = categoria.tipo === 'despesas' ? 1 : 2;
+      this.tipo.setValue(categoria.tipo);
 
     } else {
 
@@ -69,9 +87,8 @@ export class Categorias implements OnInit {
       this.icone.setValue('');
     }
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-      (result) => {
-        this.closeResult.set(`Closed with: ${result}`);
-      },
+      (result) => {},
+
       (reason) => {
         this.closeResult.set(`Dismissed ${this.getDismissReason(reason)}`);
       },
